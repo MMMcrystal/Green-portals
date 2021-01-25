@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>绿里行迹_定制精灵</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/featherlight.min.css">
+	<link rel="stylesheet" href="css/featherlight.gallery.css">
+    <link href="images/favicon.png" rel="icon">
+	<link href='https://fonts.googleapis.com/css?family=Arimo:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="live2d/css/live2d.css" />
+	
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/featherlight.min.js"></script>
+	<script type="text/javascript" src="js/featherlight.gallery.js"></script>
+
+</head>
+<body>
+	<header id="top">
+		<div class="wrapper">
+			<h1 class="logo"><a href="index.html">GRREN</a></h1>
+			<nav>
+				<ul id="navigation">
+					<li><a href="index.html">平台介绍</a></li>
+					<li><a href="home.html">个人统计</a></li>
+					<li><a href="adapplication.html">广告植入</a></li>
+					<li><a href="pet.html" class="active">定制精灵</a></li>
+					<li><a href="contact.html">企业合作</a></li>
+					<li><a href="buy.html">碳积分购买</a></li>
+					<li><a class="nav-cta" href="login.html">登录</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section class="features-section">
+		<div class="wrapper">
+			<h3>定制精灵</h3>
+			<p class="subtitle">独一无二</p>
+			<ul class="feature-squares">
+				<li>
+					<div class="image">
+						<img src="images/icon-eye.png" alt="feature icon">
+					</div>
+					<div class="text">
+						<h5>灵活定制</h5>
+						<p>从用户需求出发，配合客户理解分析用户需求，明确项目目标，制作最符合公司形象的有特色的精灵。</p>
+					</div>
+				</li>
+				<li>
+					<div class="image">
+						<img src="images/icon-clock.png" alt="feature icon">
+					</div>
+					<div class="text">
+						<h5>线上发布</h5>
+						<p>限定宠物吸引用户，力将产品的各个细节进行完善、调优，扩大客户公司知名度，提高销量。</p>
+					</div>
+				</li>
+				<li>
+					<div class="image">
+						<img src="images/icon-dashboard.png" alt="feature icon">
+					</div>
+					<div class="text">
+						<h5>线下合作</h5>
+						<p>用户获得方式独特，可增加线下商城人流量，使产品富有市场竞争力。</p>
+					</div>
+				</li>
+				<li>
+					<div class="image">
+						<img src="images/icon-headset.png" alt="feature icon">
+					</div>
+					<div class="text">
+						<h5>细致沟通</h5>
+						<p>贴心的客户服务，用心聆听客户的需求及反馈，积极与客户进行沟通，提供最全面的技术支持，确保项目的稳步进行</p>
+					</div>
+				</li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+	</section>
+
+
+	<section class="portfolio-section"><a name="portfolio"></a>
+		<h3>宠物展示</h3>
+		<p class="subtitle">Our featured works</p>
+
+		<ul class="portfolio-list">
+			<li class="item">
+				<a href="images/宠物图鉴.jpg" class="photo-overlay gallery">
+					<img src="images/宠物图鉴.jpg" alt="" />
+				</a>
+			</li>
+			<li class="item">
+				<a href="images/捕捉宠物.jpg" class="photo-overlay gallery">
+					<img src="images/捕捉宠物.jpg" alt="" />
+				</a>
+			</li>
+			<li class="item">
+				<a href="images/ar捕捉宠物.jpg" class="photo-overlay gallery">
+					<img src="images/ar捕捉宠物.jpg" alt="" />
+				</a>
+			</li>
+			<div class="clear"></div>
+		</ul>
+	</section>
+
+
+
+	<section class="text-section contact">
+		<div class="text align-center">
+			<h3>还想聊聊?</h3>
+			<p class="subtitle">了解更多</p>
+			<p><a href="contact.html" class="button-1">联系我们吧</a></p>
+		</div>
+	</section>
+
+	<div id="landlord">
+		<div class="message" style="opacity:0"></div>
+		<canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+		<div class="hide-button">隐藏</div>
+	</div>
+
+
+	<footer>
+		<div class="wrapper">
+			<a class="logo" href="#">Chase</a>
+			<div class="footer-left">
+				<p class="copyright">Copyright 2020 &copy; GREEN</p>
+				<p class="footer-links"><a href="#">Contact Us</a> I <a href="#">Terms &amp; Conditions</a> I<a href="#">Privacy</a></p>
+			</div>
+			<div class="footer-right">
+				<a href="#" class="social facebook">Facebook</a>
+				<a href="#" class="social twitter">Facebook</a>
+				<a href="#" class="social google">Facebook</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</footer>
+	<script type="text/javascript">
+		var message_Path = 'live2d/'
+		var home_Path = 'http://localhost:63342//'  //此处修改为你的域名，必须带斜杠
+	</script>
+	<script type="text/javascript" src="live2d/js/live2d.js"></script>
+	<script type="text/javascript" src="live2d/js/message.js"></script>
+	<script type="text/javascript">
+		loadlive2d("live2d", "live2d/model/tia/model.json");
+		$(document).ready(function(){
+			$('.gallery').featherlightGallery();
+		});
+	</script>
+
+</body>
+</html>

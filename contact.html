@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>绿里行迹_合作申请</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/featherlight.min.css">
+	<link href="images/favicon.png" rel="icon">
+	<link href='https://fonts.googleapis.com/css?family=Arimo:400,700' rel='stylesheet' type='text/css'>
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/featherlight.min.js"></script>
+
+</head>
+<body>
+	<header id="top">
+		<div class="wrapper">
+			<h1 class="logo"><a href="index.html">GREEN</a></h1>
+			<nav>
+				<ul id="navigation">
+					<li><a href="index.html">平台介绍</a></li>
+					<li><a href="home.html">个人统计</a></li>
+					<li><a href="adapplication.html">广告植入</a></li>
+					<li><a href="pet.html">定制精灵</a></li>
+					<li><a href="contact.html" class="active">企业合作</a></li>
+					<li><a href="buy.html">碳积分购买</a></li>
+					<li><a class="nav-cta" href="login.html">登录</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section class="list-section contactbg">
+		<h3>合作申请</h3>
+		<form class="list">
+			<p>公司名称
+				<input id="inputCpyName" type="text" placeholder="公司名称">
+			</p>
+			<p>公司邮箱
+				<input id="inputEmail" type="email" placeholder="邮箱地址">
+			</p>
+			<p>联系电话
+				<input id="inputPhone" type="text" placeholder="电话">
+			</p>
+			<p>代表姓名
+				<input id="inputName" type="text" placeholder="姓名">
+			</p>
+			<p>申请事项
+				<input id="inputTitle" type="text" placeholder="标题">
+			</p>
+			<p>具体事宜
+				<textarea id="inputMsg" type="text" placeholder="内容"></textarea>
+			</p>
+			<p style="text-align: center"><a href="#" class="button-1" id="submit_btn">提交</a></p>
+            <p style="text-align: center;color: red;" id="error"></p>
+		</form>
+	</section>
+
+	<footer>
+		<div class="wrapper">
+			<a class="logo" href="#">Chase</a>
+			<div class="footer-left">
+				<p class="copyright">Copyright 2020 &copy; GREEN</p>
+				<p class="footer-links"><a href="#">Contact Us</a> I <a href="#">Terms &amp; Conditions</a> I<a href="#">Privacy</a></p>
+			</div>
+			<div class="footer-right">
+				<a href="#" class="social facebook">Facebook</a>
+				<a href="#" class="social twitter">Facebook</a>
+				<a href="#" class="social google">Facebook</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</footer>
+
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function() {
+
+
+            $("#inputCpyName").blur(function() {
+                //对公司名字进行验证
+                checkEmpty("#inputCpyName", "#error");
+            }).focus(function() {
+                clearInfo("#error");
+            });
+
+            $("#inputName").blur(function() {
+                //对名字进行验证
+                checkEmpty("#inputName", "#error");
+            }).focus(function() {
+                clearInfo("#error");
+            });
+
+            $("#inputTitle").blur(function() {
+                //对标题进行验证
+                checkEmpty("#inputTitle", "#error");
+            }).focus(function() {
+                clearInfo("#error");
+            });
+
+            $("#inputMsg").blur(function() {
+                //对标题进行验证
+                checkEmpty("#inputMsg", "#error");
+            }).focus(function() {
+                clearInfo("#error");
+            });
+
+            function checkEmpty(id, info) {
+                var $msg = $(id).val();
+                console.log($msg);
+                if($msg==="") {
+                    setInfo(info, "内容不能为空");
+                    return false;
+                }
+                return true;
+            }
+
+            //邮箱
+            $("#inputEmail").blur(function() {
+                //对邮箱进行验证
+                checkEmail("#inputEmail", "#error");
+            }).focus(function() {
+                clearInfo("#error");
+            });
+            //验证
+            function checkEmail(id, info) {
+                var reg = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
+                var $email = $(id).val();
+                if(!reg.test($email)) {
+                    setInfo(info, "邮箱格式不正确");
+                    return false;
+                }
+                return true;
+            }
+
+            //手机号
+            $("#inputPhone").blur(function() {
+                //对手机号进行验证
+                checkTel("#inputPhone", "#error");
+            }).focus(function() {
+                clearInfo("#error");
+            });
+            //验证
+            function checkTel(id, info) {
+                var reg = /^[1][0-9]{10}$/;
+                var $tel = $(id).val();
+                if(!reg.test($tel)) {
+                    setInfo(info, "手机号格式不正确");
+                    return false;
+                }
+                return true;
+            }
+
+            //设置错误信息
+            function setInfo(id, info) {
+                $(id).text(info);
+            }
+
+            //清空错误信息
+            function clearInfo(id) {
+                $(id).text("");
+            }
+
+            function checkAll() {
+                if(checkEmail("#inputEmail", "#error")&& checkTel("#inputPhone", "#error")&&checkEmpty("#inputCpyName", "#error")&&checkEmpty("#inputName", "#error")&&checkEmpty("#inputTitle", "#error")&&checkEmpty("#inputMsg", "#error")) {
+                    return true;
+                }
+                return false;
+            };
+
+            $("#submit_btn").click(
+
+                function (){
+
+                    if(!checkAll()){//判断所有条件成立（其他判断规则在其输入时已经判断）
+
+                        alert("请正确填写信息！");
+
+                        return false;
+
+                    }else{//以上均符合要求，则调用登录esb接口
+
+                        alert("申请已发送！")
+                        location.reload();
+                    }
+
+
+
+                }
+
+            );
+
+            /*直接点击enter免除手动点击登录按钮*/
+
+            $(document).keyup(function(event){
+
+                if(event.keyCode ===13){
+
+                    $("#submit_btn").trigger("click");
+
+                }
+
+            });
+
+        });
+    </script>
+</body>
+</html>

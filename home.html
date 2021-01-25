@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>绿里行迹_个人统计</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/featherlight.min.css">
+	<link href="images/favicon.png" rel="icon">
+	<link href='https://fonts.googleapis.com/css?family=Arimo:400,700' rel='stylesheet' type='text/css'>
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/featherlight.min.js"></script>
+	<!--引入百度地图的jssdk，这里需要使用你在百度地图开发者平台申请的 ak-->
+	<script src="http://api.map.baidu.com/api?v=2.0&ak=6TK5fGzDncyb53YIpUXzNDr6wq8T9L4O"></script>
+	<!-- 引入 ECharts -->
+	<script src="js/echarts.js"></script>
+	<!-- 引入百度地图扩展 -->
+	<script src="js/bmap.min.js"></script>
+
+
+
+</head>
+<body>
+	<header id="top">
+		<div class="wrapper">
+			<h1 class="logo"><a href="index.html">GREEN</a></h1>
+			<nav>
+				<ul id="navigation">
+					<li><a href="index.html">平台介绍</a></li>
+					<li><a href="home.html" class="active">个人统计</a></li>
+					<li><a href="adapplication.html">广告植入</a></li>
+					<li><a href="adapplication.html">定制精灵</a></li>
+					<li><a href="adapplication.html">企业合作</a></li>
+                    <li><a href="buy.html">碳积分购买</a></li>
+					<li><a class="nav-cta" href="login.html">登录</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section class="text-section">
+		<div class="text align-center">
+			<div id="contribution" style="width: 100%;height:600px;"></div>
+			<div class="hang">
+				<img src="images/hang.jpg">
+			</div>
+			<div id="map" style="width: 100%;height:600px;"></div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="wrapper">
+			<a class="logo" href="#">Chase</a>
+			<div class="footer-left">
+				<p class="copyright">Copyright 2020 &copy; GREEN</p>
+				<p class="footer-links"><a href="#">Contact Us</a> I <a href="#">Terms &amp; Conditions</a> I<a href="#">Privacy</a></p>
+			</div>
+			<div class="footer-right">
+				<a href="#" class="social facebook">Facebook</a>
+				<a href="#" class="social twitter">Facebook</a>
+				<a href="#" class="social google">Facebook</a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</footer>
+
+<!--script-->
+<!--	报表-->
+	<script type="text/javascript">
+		// 基于准备好的dom，初始化echarts实例
+		var myChartcon = echarts.init(document.getElementById('contribution'));
+
+		// 指定图表的配置项和数据
+		var spirit = 'image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA2CAYAAADUOvnEAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA5tJREFUeNrcWE1oE0EUnp0kbWyUpCiNYEpCFSpIMdpLRTD15s2ePHixnj00N4/GoyfTg2fbiwdvvagHC1UQ66GQUIQKKgn1UAqSSFua38b3prPJZDs7s5ufKn0w7CaZ2W/fe9/73kyMRqNB3Nrj1zdn4RJ6du9T2u1a2iHYSxjP4d41oOHGQwAIwSUHIyh8/RA8XeiXh0kLGFoaXiTecw/hoTG4ZCSAaFkY0+BpsZceLtiAoV2FkepZSDk5EpppczBvpuuQCqx0YnkYcVVoqQYMyeCG+lFdaGkXeVOFNu4aEBalOBk6sbQrQF7gSdK5JXjuHXuYVIVyr0TZ0FjKDeCs6km7JYMUdrWAUVmZUBtmRnVPK+x6nIR2xomH06R35ggwJPeofWphr/W5UjPIxq8B2bKgE8C4HVHWvg+2gZjXj19PkdFztY7bk9TDCH/g6oafDPpaoMvZIRI5WyMB/0Hv++HkpTKE0kM+A+h20cPAfN4GuRyp9G+LMTW+z8rCLI8b46XO9zRcYZTde/j0AZm8WGb3Y2F9KLlE2nqYkjFLJAsDOl/lea0q55mqxXcL7YBc++bsCPMe8mUyU2ZIpnCoblca6TZA/ga2Co8PGg7UGUlEDd0ueptglbrRZLLE7poti6pCaWUo2pu1oaYI1CF9b9cCZPO3F8ikJQ/rPpQT5YETht26ss+uCIL2Y8vHwJGpA96GI5mjOlaKhowUy6BcNcgIhDviTGWCGFaqEuufWz4pgcbCh+w0gEOyOjTlTtYYlIWPYWKEsLDzOs+nhzaO1KEpd+MXpOoTUgKiNyhdy5aSMPNVqxtSsJFgza5EWA4zKtCJ2OGbLn0JSLu8+SL4G86p1Fpr7ABXdGFF/UTD4rfmFYFw4G9VAJ9SM3aF8l3yok4/J6IV9sDVb36ynmtJ2M5+CwxTYBdKNMBaocKGV2nYgkz6r+cHBP30MzAfi4Sy+BebSoPIOi8PW1PpCCvr/KOD4k9Zu0WSH0Y0+SxJ2awp/nlwKtcGyHOJ8vNHtRJzhPlsHr8MogtlVtwUU0tSM1x58upSKbfJnSKUR07GVMKkDNfXpzpv0RTHy3nZMVx5IOWdZIaPabGFvfpwpjnvfmJHXLaEvZUTseu/TeLc+xgAPhEAb/PbjO6PBaOTf6LQRh/dERde23zxLtOXbaKNhfq2L/1fAOPHDUhOpIf5485h7l+GNHHiSYPKE3Myz9sFxoJuAyazvwIMAItferha5LTqAAAAAElFTkSuQmCC';
+		var maxData = 2000;
+
+		option = {
+			title: {
+				text: '绿色贡献统计报表',
+				left: 'center',
+				textStyle:{
+					fontSize:24,
+				}
+			},
+			tooltip: {
+			},
+			xAxis: {
+				max: maxData,
+				splitLine: {show: false},
+				offset: 10,
+				axisLine: {
+					lineStyle: {
+						color: '#999'
+					}
+				},
+				axisLabel: {
+					margin: 10
+				}
+			},
+			yAxis: {
+				data: ['2013', '2014', '2015', '2016'],
+				inverse: true,
+				axisTick: {show: false},
+				axisLine: {show: false},
+				axisLabel: {
+					margin: 10,
+					color: '#999',
+					fontSize: 16
+				}
+			},
+			grid: {
+				top: 'center',
+				height: 400,
+				left: 70,
+				right: 100
+			},
+			series: [{
+				// current data
+				type: 'pictorialBar',
+				symbol: spirit,
+				symbolRepeat: 'fixed',
+				symbolMargin: '5%',
+				symbolClip: true,
+				symbolSize: 40,
+				symbolBoundingData: maxData,
+				data: [891, 1220, 660, 1670],
+				markLine: {
+					symbol: 'none',
+					label: {
+						formatter: 'max: {c}',
+						position: 'start'
+					},
+					lineStyle: {
+						color: 'green',
+						type: 'dotted',
+						opacity: 0.2,
+						width: 2
+					},
+					data: [{
+						type: 'max'
+					}]
+				},
+				z: 10
+			}, {
+				// full data
+				type: 'pictorialBar',
+				itemStyle: {
+					normal: {
+						opacity: 0.2
+					}
+				},
+				label: {
+					show: true,
+					formatter: function (params) {
+						return (params.value / maxData * 100).toFixed(1) + ' %';
+					},
+					position: 'right',
+					offset: [10, 0],
+					color: 'green',
+					fontSize: 18
+				},
+				animationDuration: 0,
+				symbolRepeat: 'fixed',
+				symbolMargin: '5%',
+				symbol: spirit,
+				symbolSize: 40,
+				symbolBoundingData: maxData,
+				data: [891, 1220, 660, 1670],
+				z: 5
+			}]
+		};
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChartcon.setOption(option);
+	</script>
+
+<!--	路径-->
+	<script type="text/javascript">
+		var myChart = echarts.init(document.getElementById('map'));
+
+		$.get('data/hangzhou-tracks.json', function (data) {
+			var lines = data.map(function (track) {
+				return {
+					coords: track.map(function (seg, idx) {
+						return seg.coord;
+					})
+				};
+			});
+			// var lines = [].concat.apply([], data.map(function (track) {
+			//     return track.slice(1).map(function (seg, idx) {
+			//         return [track[idx], track[idx + 1]];
+			//     });
+			// }));
+			// lines = lines.concat(lines);
+			myChart.setOption({
+				animation: false,
+				title: {
+					text: '碳足迹地图',
+					left: 'center',
+					top: 10
+				},
+				bmap: {
+					center: [120.13066322374, 30.240018034923],
+					zoom: 14,
+					roam: true,
+					mapStyle: {
+						styleJson: [
+							{
+								'featureType': 'water',
+								'elementType': 'all',
+								'stylers': {
+									'color': '#d1d1d1'
+								}
+							},
+							{
+								'featureType': 'land',
+								'elementType': 'all',
+								'stylers': {
+									'color': '#f3f3f3'
+								}
+							},
+							{
+								'featureType': 'railway',
+								'elementType': 'all',
+								'stylers': {
+									'visibility': 'off'
+								}
+							},
+							{
+								'featureType': 'highway',
+								'elementType': 'all',
+								'stylers': {
+									'color': '#fdfdfd'
+								}
+							},
+							{
+								'featureType': 'highway',
+								'elementType': 'labels',
+								'stylers': {
+									'visibility': 'off'
+								}
+							},
+							{
+								'featureType': 'arterial',
+								'elementType': 'geometry',
+								'stylers': {
+									'color': '#fefefe'
+								}
+							},
+							{
+								'featureType': 'arterial',
+								'elementType': 'geometry.fill',
+								'stylers': {
+									'color': '#fefefe'
+								}
+							},
+							{
+								'featureType': 'poi',
+								'elementType': 'all',
+								'stylers': {
+									'visibility': 'off'
+								}
+							},
+							{
+								'featureType': 'green',
+								'elementType': 'all',
+								'stylers': {
+									'visibility': 'off'
+								}
+							},
+							{
+								'featureType': 'subway',
+								'elementType': 'all',
+								'stylers': {
+									'visibility': 'off'
+								}
+							},
+							{
+								'featureType': 'manmade',
+								'elementType': 'all',
+								'stylers': {
+									'color': '#d1d1d1'
+								}
+							},
+							{
+								'featureType': 'local',
+								'elementType': 'all',
+								'stylers': {
+									'color': '#d1d1d1'
+								}
+							},
+							{
+								'featureType': 'arterial',
+								'elementType': 'labels',
+								'stylers': {
+									'visibility': 'off'
+								}
+							},
+							{
+								'featureType': 'boundary',
+								'elementType': 'all',
+								'stylers': {
+									'color': '#fefefe'
+								}
+							},
+							{
+								'featureType': 'building',
+								'elementType': 'all',
+								'stylers': {
+									'color': '#d1d1d1'
+								}
+							},
+							{
+								'featureType': 'label',
+								'elementType': 'geometry.fill',
+								'stylers': {
+									'color': '#848484'
+								}
+							},
+							{
+								'featureType': 'label',
+								'elementType': 'geometry',
+								'stylers': {
+									'visibility': 'off'
+								}
+							}
+						]
+					}
+				},
+				series: [{
+					type: 'lines',
+					coordinateSystem: 'bmap',
+					data: lines,
+					polyline: true,
+					lineStyle: {
+						normal: {
+							color: 'purple',
+							opacity: 0.4,
+							width: 1
+						}
+					}
+				}]
+			});
+
+		});
+	</script>
+
+<!--	<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>-->
+<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>-->
+<!--	<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>-->
+
+</body>
+</html>
